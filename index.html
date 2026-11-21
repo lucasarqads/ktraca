@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-page="login">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entrar · Festec</title>
+  <meta name="description" content="Festec — gerenciamento de entrada de convidados em eventos.">
+  <meta name="theme-color" content="#0A2A6B">
+  <link rel="preload" as="image" href="assets/img/bg-azul.jpg">
+  <link rel="preload" as="image" href="assets/img/logo-festec.png?v=2">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%234F39F6'/%3E%3Ctext x='16' y='22' font-family='Arial' font-weight='800' font-size='16' fill='white' text-anchor='middle'%3Ef.%3C/text%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Carregado no <head> para redirecionar antes de renderizar caso já exista sessão -->
+  <script src="js/auth.js"></script>
+  <script src="js/protect.js" defer></script>
+</head>
+<body class="page-login">
+  <main class="login">
+    <!-- Vídeo de fundo decorativo (mudo, em loop). A imagem azul é o poster e o fallback. -->
+    <video class="login__video" autoplay muted loop playsinline preload="auto"
+           poster="assets/img/bg-azul.jpg" aria-hidden="true" tabindex="-1" disablepictureinpicture>
+      <source src="assets/img/videos/loginEfeito.mp4" type="video/mp4">
+    </video>
+
+    <a class="login__brand" href="index.html" aria-label="Festec — página inicial">
+      <img src="assets/img/logo-festec.png?v=2" alt="festec" width="88" height="85">
+    </a>
+
+    <section class="card login__card" id="loginCard" aria-labelledby="loginTitle">
+      <header class="login__head">
+        <span class="eyebrow">Área do organizador</span>
+        <h1 class="title" id="loginTitle">Gerenciador de eventos</h1>
+        <p class="subtitle">Acesse para controlar a entrada dos convidados do evento.</p>
+      </header>
+
+      <form class="login__form" id="loginForm" novalidate>
+        <div class="field">
+          <label class="label" for="userName">Seu nome</label>
+          <input class="input" type="text" id="userName" name="userName"
+                 placeholder="Digite seu nome" autocomplete="name"
+                 required minlength="2" aria-describedby="userNameError">
+          <span class="field-error" id="userNameError" role="alert"></span>
+        </div>
+
+        <div class="field">
+          <label class="label" for="password">Senha</label>
+          <div class="input-wrap">
+            <input class="input" type="password" id="password" name="password"
+                   placeholder="Digite 1234" autocomplete="current-password"
+                   required aria-describedby="passwordError">
+            <button type="button" class="input-icon-btn" id="togglePassword"
+                    aria-label="Mostrar senha" aria-pressed="false" aria-controls="password">
+              <!-- Ícone olho aberto -->
+              <svg class="icon-eye" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+              <!-- Ícone olho fechado -->
+              <svg class="icon-eye-off" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" hidden><path d="M17.94 17.94A10.07 10.07 0 0 1 12 19c-6.4 0-10-7-10-7a18.5 18.5 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c6.4 0 10 7 10 7a18.5 18.5 0 0 1-2.16 3.19M14.12 14.12a3 3 0 1 1-4.24-4.24"/><path d="M1 1l22 22"/></svg>
+            </button>
+          </div>
+          <span class="field-error" id="passwordError" role="alert"></span>
+        </div>
+
+        <button type="submit" class="btn btn--primary btn--block" id="loginBtn">Entrar</button>
+      </form>
+    </section>
+
+    <p class="login__hint">
+      <span class="login__hint-logo" aria-hidden="true"><img src="assets/img/logo.svg" alt=""></span>
+      <span>Desenvolvido por Horzone Tecnologia</span>
+    </p>
+  </main>
+</body>
+</html>

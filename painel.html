@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-page="painel">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerenciador · Festec</title>
+  <meta name="description" content="Festec — painel de controle de entrada de convidados.">
+  <meta name="theme-color" content="#0A2A6B">
+  <link rel="preload" as="image" href="assets/img/bg-azul.jpg">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%234F39F6'/%3E%3Ctext x='16' y='22' font-family='Arial' font-weight='800' font-size='16' fill='white' text-anchor='middle'%3Ef.%3C/text%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Proteção de rota: redireciona ao login se não houver sessão -->
+  <script src="js/auth.js"></script>
+  <script src="js/protect.js" defer></script>
+</head>
+<body class="page-painel">
+  <a class="sr-only" href="#conteudo">Pular para o conteúdo</a>
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="header">
+    <div class="header__inner">
+      <div class="header__brand">
+        <a class="header__logo" href="painel.html" aria-label="Festec — gerenciador">
+          <img src="assets/img/logo-festec.png?v=2" alt="festec" width="48" height="47">
+        </a>
+        <span class="header__section">Gerenciador</span>
+      </div>
+
+      <div class="header__right">
+        <div class="clock" aria-label="Hora atual">
+          <span class="clock__dot" aria-hidden="true"></span>
+          <time id="clock">--:--:--</time>
+        </div>
+        <div class="user">
+          <span class="user__hello">Olá, <strong id="userName">—</strong></span>
+          <span class="avatar" id="userAvatar" aria-hidden="true">?</span>
+        </div>
+        <button type="button" class="btn btn--ghost" id="logoutBtn">Sair</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main" id="conteudo">
+    <!-- ===================== CABEÇALHO DA PÁGINA ===================== -->
+    <section class="page-head">
+      <div>
+        <span class="eyebrow">Painel do evento</span>
+        <h1 class="title" id="eventName">Festec Summit 2026</h1>
+        <p class="subtitle" id="eventInfo">22/11/2026 · 19h · Espaço Vila Nova, São Paulo</p>
+      </div>
+    </section>
+
+    <!-- ===================== MÉTRICAS ===================== -->
+    <section class="metrics" aria-label="Resumo do evento">
+      <article class="card metric">
+        <div class="metric__top">
+          <span class="metric__label">Total de convidados</span>
+          <span class="metric__icon metric__icon--primary" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </span>
+        </div>
+        <div class="metric__value" id="mTotal">0</div>
+        <div class="metric__sub" id="mTotalSub">&nbsp;</div>
+      </article>
+
+      <article class="card metric">
+        <div class="metric__top">
+          <span class="metric__label">Presentes</span>
+          <span class="metric__icon metric__icon--success" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          </span>
+        </div>
+        <div class="metric__value" id="mPresent">0</div>
+        <div class="metric__sub" id="mPresentSub">&nbsp;</div>
+      </article>
+
+      <article class="card metric">
+        <div class="metric__top">
+          <span class="metric__label">Aguardando</span>
+          <span class="metric__icon metric__icon--warning" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </span>
+        </div>
+        <div class="metric__value" id="mWaiting">0</div>
+        <div class="metric__sub">Ainda não chegaram</div>
+      </article>
+
+      <article class="card metric">
+        <div class="metric__top">
+          <span class="metric__label">VIPs</span>
+          <span class="metric__icon metric__icon--vip" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </span>
+        </div>
+        <div class="metric__value" id="mVip">0</div>
+        <div class="metric__sub" id="mVipSub">&nbsp;</div>
+      </article>
+    </section>
+
+    <section class="card occupancy" aria-label="Ocupação do evento">
+      <div class="occupancy__row">
+        <strong>Ocupação do evento</strong>
+        <span id="occupancyText">0 de 0 · 0%</span>
+      </div>
+      <div class="progress" role="progressbar" id="occupancyBar"
+           aria-label="Ocupação do evento" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div class="progress__bar" id="occupancyFill"></div>
+      </div>
+    </section>
+
+    <!-- ===================== LISTA DE CONVIDADOS ===================== -->
+    <section class="card panel" aria-labelledby="listTitle">
+      <h2 class="sr-only" id="listTitle">Lista de convidados</h2>
+
+      <div class="panel__top">
+        <!-- Check-in rápido -->
+        <div class="quick-checkin">
+          <label class="quick-checkin__label" for="quickCode">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M7 12h10"/></svg>
+            Check-in rápido por código
+          </label>
+          <form class="quick-checkin__form" id="quickForm" novalidate>
+            <input class="input" type="text" id="quickCode" placeholder="Ex.: FST-4821"
+                   autocomplete="off" spellcheck="false" maxlength="8" aria-describedby="quickError">
+            <button type="submit" class="btn btn--primary">Confirmar</button>
+          </form>
+          <span class="field-error" id="quickError" role="alert"></span>
+        </div>
+
+        <!-- Filtros e ações -->
+        <div class="toolbar">
+          <div class="input-search">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+            <label class="sr-only" for="search">Buscar convidado</label>
+            <input class="input" type="search" id="search" placeholder="Buscar por nome, e-mail, telefone ou código" autocomplete="off">
+          </div>
+
+          <label class="sr-only" for="filterStatus">Filtrar por status</label>
+          <select class="select" id="filterStatus">
+            <option value="todos">Status: Todos</option>
+            <option value="aguardando">Aguardando</option>
+            <option value="presente">Presente</option>
+            <option value="cancelado">Cancelado</option>
+          </select>
+
+          <label class="sr-only" for="filterType">Filtrar por tipo de ingresso</label>
+          <select class="select" id="filterType">
+            <option value="todos">Ingresso: Todos</option>
+            <option value="pista">Pista</option>
+            <option value="vip">VIP</option>
+            <option value="imprensa">Imprensa</option>
+            <option value="staff">Staff</option>
+          </select>
+
+          <button type="button" class="btn btn--ghost" id="exportBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            Exportar CSV
+          </button>
+
+          <button type="button" class="btn btn--primary" id="addBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+            Adicionar convidado
+          </button>
+        </div>
+      </div>
+
+      <p class="result-count" id="resultCount" aria-live="polite"></p>
+
+      <!-- Tabela (desktop) -->
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col" id="thName" aria-sort="ascending">
+                <button type="button" class="sort-btn" data-sort="name" data-active="true" data-dir="asc">
+                  Convidado
+                  <svg class="sort-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6-6 6 6M12 3v18"/></svg>
+                </button>
+              </th>
+              <th scope="col">Telefone</th>
+              <th scope="col">Idade</th>
+              <th scope="col">Ingresso</th>
+              <th scope="col">
+                <span class="th-long">Acompanhantes</span>
+                <abbr class="th-short" title="Acompanhantes">Acomp.</abbr>
+              </th>
+              <th scope="col" id="thCheckin" aria-sort="none">
+                <button type="button" class="sort-btn" data-sort="checkin" data-active="false" data-dir="asc">
+                  Check-in
+                  <svg class="sort-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6-6 6 6M12 3v18"/></svg>
+                </button>
+              </th>
+              <th scope="col">Status</th>
+              <th scope="col" style="text-align:right">Ações</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+
+      <!-- Lista de cards (mobile) -->
+      <div class="cards" id="cardList"></div>
+
+      <!-- Estado vazio -->
+      <div class="empty" id="emptyState">
+        <svg width="120" height="96" viewBox="0 0 120 96" fill="none" aria-hidden="true">
+          <rect x="14" y="16" width="72" height="64" rx="14" fill="#EEF2FF"/>
+          <rect x="26" y="32" width="36" height="6" rx="3" fill="#C7C0FD"/>
+          <rect x="26" y="46" width="48" height="6" rx="3" fill="#DDD8FE"/>
+          <rect x="26" y="60" width="28" height="6" rx="3" fill="#DDD8FE"/>
+          <circle cx="82" cy="58" r="18" fill="#fff" stroke="#4F39F6" stroke-width="5"/>
+          <path d="m95 71 13 13" stroke="#4F39F6" stroke-width="6" stroke-linecap="round"/>
+          <path d="M76 52l12 12M88 52 76 64" stroke="#7C6BFA" stroke-width="3.5" stroke-linecap="round"/>
+        </svg>
+        <h3>Nenhum convidado encontrado</h3>
+        <p id="emptyText">Tente ajustar a busca ou os filtros para encontrar quem você procura.</p>
+        <button type="button" class="btn btn--ghost" id="clearFiltersBtn">Limpar filtros</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== RODAPÉ ===================== -->
+  <footer class="footer">
+    <span>© 2026 Festec · Projeto de demonstração</span>
+    <button type="button" class="btn btn--link" id="resetBtn">Restaurar dados de demonstração</button>
+  </footer>
+
+  <!-- ===================== MODAL: ADICIONAR / EDITAR ===================== -->
+  <div class="modal" id="guestModal" aria-hidden="true">
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="guestModalTitle">
+      <div class="modal__head">
+        <div>
+          <span class="eyebrow" id="guestModalEyebrow">Novo convidado</span>
+          <h2 class="modal__title" id="guestModalTitle">Adicionar convidado</h2>
+        </div>
+        <button type="button" class="modal__close" data-close aria-label="Fechar">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <form id="guestForm" novalidate>
+        <div class="code-preview">
+          <span>Código do ingresso (gerado automaticamente)</span>
+          <strong id="guestCode">FST-0000</strong>
+        </div>
+
+        <div class="form-grid">
+          <div class="field field--full">
+            <label class="label" for="gName">Nome completo</label>
+            <input class="input" type="text" id="gName" autocomplete="off" aria-describedby="gNameError">
+            <span class="field-error" id="gNameError"></span>
+          </div>
+
+          <div class="field">
+            <label class="label" for="gEmail">E-mail</label>
+            <input class="input" type="email" id="gEmail" autocomplete="off" placeholder="nome@email.com" aria-describedby="gEmailError">
+            <span class="field-error" id="gEmailError"></span>
+          </div>
+
+          <div class="field">
+            <label class="label" for="gPhone">Telefone</label>
+            <input class="input mono" type="tel" id="gPhone" inputmode="numeric" autocomplete="off" placeholder="(11) 91234-5678" maxlength="15" aria-describedby="gPhoneError">
+            <span class="field-error" id="gPhoneError"></span>
+          </div>
+
+          <div class="field">
+            <label class="label" for="gType">Tipo de ingresso</label>
+            <select class="select" id="gType">
+              <option value="pista">Pista</option>
+              <option value="vip">VIP</option>
+              <option value="imprensa">Imprensa</option>
+              <option value="staff">Staff</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label class="label" for="gCompanions">Acompanhantes</label>
+            <input class="input" type="number" id="gCompanions" min="0" max="5" step="1" value="0" inputmode="numeric" aria-describedby="gCompanionsError">
+            <span class="field-error" id="gCompanionsError"></span>
+          </div>
+
+          <div class="field field--full">
+            <label class="label" for="gAge">Idade</label>
+            <input class="input" type="number" id="gAge" min="18" max="120" step="1"
+                   inputmode="numeric" placeholder="Ex.: 25" aria-describedby="gAgeHint gAgeError">
+            <span class="field-hint" id="gAgeHint">Evento exclusivo para maiores de 18 anos.</span>
+            <span class="field-error" id="gAgeError"></span>
+          </div>
+
+          <div class="field field--full" id="gStatusField">
+            <label class="label" for="gStatus">Status</label>
+            <select class="select" id="gStatus">
+              <option value="aguardando">Aguardando</option>
+              <option value="presente">Presente</option>
+              <option value="cancelado">Cancelado</option>
+            </select>
+          </div>
+
+          <div class="field field--full">
+            <label class="label" for="gNotes">Observações <span class="opt">(opcional)</span></label>
+            <textarea class="textarea" id="gNotes" maxlength="200" placeholder="Ex.: mesa reservada, restrição alimentar, acesso ao palco..."></textarea>
+          </div>
+        </div>
+
+        <div class="modal__foot">
+          <button type="button" class="btn btn--ghost" data-close>Cancelar</button>
+          <button type="submit" class="btn btn--primary" id="guestSubmit">Adicionar convidado</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===================== MODAL: CONFIRMAÇÃO ===================== -->
+  <div class="modal" id="confirmModal" aria-hidden="true">
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__dialog modal__dialog--sm" role="alertdialog" aria-modal="true"
+         aria-labelledby="confirmTitle" aria-describedby="confirmText">
+      <div class="confirm__icon" aria-hidden="true">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6M10 11v6M14 11v6"/></svg>
+      </div>
+      <h2 class="modal__title" id="confirmTitle">Remover convidado?</h2>
+      <p class="confirm__text" id="confirmText"></p>
+      <div class="modal__foot">
+        <button type="button" class="btn btn--ghost" data-close>Cancelar</button>
+        <button type="button" class="btn btn--danger" id="confirmOk">Remover</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== TOASTS ===================== -->
+  <div class="toasts" id="toasts" role="status" aria-live="polite" aria-atomic="false"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/painel.js"></script>
+</body>
+</html>
