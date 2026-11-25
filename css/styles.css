@@ -325,20 +325,18 @@ a { color: var(--primary); }
   .login__video { display: none; }
 }
 
-/* Logo em vidro do login (imagem PNG com fundo transparente, 293×285) */
+/* Nome da marca no login */
 .login__brand {
-  display: block;
-  border-radius: 22px;
-  line-height: 0;
+  color: #fff;
+  font-weight: 800;
+  font-size: 48px;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  text-decoration: none;
+  text-shadow: 0 8px 28px rgba(0, 5, 20, 0.5);
   transition: transform var(--t);
 }
 .login__brand:hover { transform: translateY(-2px); }
-.login__brand img {
-  display: block;
-  width: 88px;
-  height: auto;
-  filter: drop-shadow(0 14px 28px rgba(0, 5, 20, 0.45));
-}
 
 /* Sobre o fundo escuro, logo e dica ficam em branco para manter o contraste */
 .login .logo__text { color: #fff; }
@@ -434,7 +432,7 @@ a { color: var(--primary); }
   align-items: center;
   justify-content: center;
   gap: 8px;
-  font-size: 13px;
+  font-size: 11px;
   color: rgba(255, 255, 255, 0.9);
   text-align: center;
 }
@@ -485,7 +483,7 @@ body.page-login { overflow-x: hidden; }
   .login { gap: 18px; padding-top: 24px; padding-bottom: 24px; }
   .logo--lg .logo__mark { width: 38px; height: 38px; font-size: 18px; border-radius: 12px; }
   .logo--lg .logo__text { font-size: 22px; }
-  .login__brand img { width: 72px; }
+  .login__brand { font-size: 40px; }
   .login__card { padding: 28px 28px 24px; }
   .login__head { margin-bottom: 20px; }
   .login__head .title { font-size: 25px; }
@@ -499,7 +497,7 @@ body.page-login { overflow-x: hidden; }
 /* Telas ainda mais baixas (zoom, barra de favoritos, janelas menores) */
 @media (max-height: 660px) {
   .login { gap: 14px; padding-top: 16px; padding-bottom: 16px; }
-  .login__brand img { width: 60px; }
+  .login__brand { font-size: 34px; }
   .login__card { padding: 22px 24px 20px; }
   .login__head { margin-bottom: 16px; }
   .login__head .eyebrow { margin-bottom: 4px; }
@@ -543,34 +541,28 @@ body.page-login { overflow-x: hidden; }
   padding: 14px 24px;
 }
 .header__brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
-/* "Gerenciador": mesmo estilo do título "Festec Summit 2026" (peso 800 e espaçamento justo),
-   em tamanho adequado ao header */
+/* "Gerenciador": secundário, separado do nome da marca por um divisor */
 .header__section {
+  padding-left: 12px;
+  border-left: 1px solid rgba(255, 255, 255, 0.25);
   color: var(--text);
-  font-weight: 800;
-  font-size: 20px;
-  letter-spacing: -0.03em;
+  font-weight: 500;
+  font-size: 16px;
   line-height: 1.15;
 }
 
-/* Logo em vidro (mesma imagem do login) */
+/* Nome da marca no header */
 .header__logo {
-  display: block;
   flex-shrink: 0;
-  line-height: 0;
-  border-radius: 12px;
+  color: #fff;
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  text-decoration: none;
   transition: transform var(--t);
 }
 .header__logo:hover { transform: translateY(-1px); }
-.header__logo img {
-  display: block;
-  width: 48px;
-  height: auto;
-  filter: drop-shadow(0 6px 14px rgba(0, 5, 20, 0.4));
-}
-@media (max-width: 767px) {
-  .header__logo img { width: 42px; }
-}
 .header__right { display: flex; align-items: center; gap: 14px; }
 
 .clock {
@@ -682,7 +674,7 @@ body.page-login { overflow-x: hidden; }
 .occupancy__row strong { font-weight: 700; }
 .occupancy__row span { color: var(--muted); font-variant-numeric: tabular-nums; }
 .progress {
-  height: 10px;
+  height: 8px;
   background: #F0EEEA;
   border-radius: var(--radius-pill);
   overflow: hidden;

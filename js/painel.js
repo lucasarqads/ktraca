@@ -752,7 +752,7 @@
     var d = new Date();
     var a = document.createElement('a');
     a.href = url;
-    a.download = 'festec-convidados-' + d.getFullYear() + pad(d.getMonth() + 1) + pad(d.getDate()) + '-' + pad(d.getHours()) + pad(d.getMinutes()) + '.csv';
+    a.download = 'ktraca-convidados-' + d.getFullYear() + pad(d.getMonth() + 1) + pad(d.getDate()) + '-' + pad(d.getHours()) + pad(d.getMinutes()) + '.csv';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -786,7 +786,7 @@
     // Dados do evento
     if (ev.name) {
       $('eventName').textContent = ev.name;
-      document.title = ev.name + ' · Festec';
+      document.title = ev.name + ' · Ktraca';
     }
     $('eventInfo').textContent = [ev.date, ev.time, ev.venue].filter(Boolean).join(' · ');
 
